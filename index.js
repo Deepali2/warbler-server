@@ -1,8 +1,9 @@
-const express    = require ('express'),
-      cors       = require ('cors'),
-      bodyParser = require('body-parser'),
-      app        = express(),
-      PORT       = 8081;  
+const express      = require ('express'),
+      cors         = require ('cors'),
+      bodyParser   = require('body-parser'),
+      app          = express(),
+      PORT         = 8081,
+      errorHandler = require("./handlers/errors");
      
 app.use(cors());
 app.use(bodyParser.json()); //since we are building an API we do not use urlencoded
@@ -23,6 +24,8 @@ app.use((req, res, next) => {
 // app.get('/', (req, res) => {
 //   res.send('Hello from the express server')
 // })
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`The express server is listening on port ${PORT}`);
