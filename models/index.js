@@ -9,3 +9,4 @@ mongoose.connect('mongodb://localhost/warbler', {
 });
 
 module.exports.User = require("./user");  //bundling
+module.exports.Message = require("./message");
