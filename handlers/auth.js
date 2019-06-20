@@ -1,4 +1,4 @@
-source .env;
+
 const db = require("../models"); //leaving out /index is fine as vs code understands if it is index.js
 const jwt = require("jsonwebtoken");
 
