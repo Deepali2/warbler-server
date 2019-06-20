@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose'),
       bcrypt   = require('bcrypt');//bcrypt library is going to be used for passport hashing(take a plain text passport and turn it into something that cannot be reversed)
 
@@ -44,7 +45,7 @@ userSchema.method.comparePassword = async function(candidatePassword, next) {
   }
 }
 
-const User = mongoose.Model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 
