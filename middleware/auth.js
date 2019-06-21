@@ -1,4 +1,4 @@
-require("dotenv").load();
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 //the middleware goes in between the request and the handler to create a message
@@ -29,6 +29,24 @@ exports.loginRequired = function(req, res, next){
 };
 
 //make sure we get the correct user - Authorization
-exports.ensureCorrectUser = function(req, res, next){};
+exports.ensureCorrectUser = function(req, res, next){
+  try {
+    jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
+      if (decoded && decoded.id === req.params.id) { //prevents a logged in user to make a message for another user
+        return next();
+      } else {
+        return next({
+          status: 401,
+          message: "unauthorized"
+        });
+      }
+    })
+  } catch(e) {
+    return next({
+      status: 401,
+      message: "unauthorized"
+    })
+  }
+};
 
 
