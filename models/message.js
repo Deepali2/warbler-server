@@ -11,12 +11,14 @@ const messageSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
+}, {
+  timestamps: true // this will create a created at and an updated at for each individual document that this messageSchema creates
 });
 
 messageSchema.pre('remove', async function(next) {
   try {
     //find a user
-    let user = await User.findById(this.userId);
+    let user = await User.findById(this.user);
     //remove the id of the message from their message list
     user.message.remove(this.id); //remove is a mongoose method
     //save that user
